@@ -45,3 +45,66 @@ function mostrarClubes(clubes) {
 
 // Ejecutar función al cargar
 obtenerClubes();
+const form = document.getElementById('club-form');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const datos = {
+        nombre: form.nombre.value,
+        img: form.img.value,
+        fundacion: form.fundacion.value,
+        estadio: form.estadio.value,
+        capacidad: form.capacidad.value,
+        titulos: form.titulos.value
+    };
+
+    try {
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        });
+
+        if (!res.ok) throw new Error('No se pudo agregar el club');
+
+        form.reset(); // Limpiar campos
+        document.getElementById('clubes-list').innerHTML = ''; // Limpiar la lista
+        obtenerClubes(); // Volver a cargar los clubes
+
+    } catch (error) {
+        console.error('Error al agregar el club:', error);
+        alert('Ocurrió un error al agregar el club. Intenta nuevamente.');
+    }
+});
+// Mostrar/ocultar formulario
+const toggleBtn = document.getElementById('toggle-form-btn');
+const formContainer = document.getElementById('form-container');
+
+toggleBtn.addEventListener('click', () => {
+    formContainer.classList.toggle('oculto');
+    toggleBtn.textContent = formContainer.classList.contains('oculto') 
+        ? '➕ Agregar nuevo club' 
+        : '✖️ Ocultar formulario';
+});
+
+// Vista previa en tiempo real
+const preview = {
+    nombre: document.getElementById('preview-nombre'),
+    img: document.getElementById('preview-img'),
+    fundacion: document.getElementById('preview-fundacion'),
+    estadio: document.getElementById('preview-estadio'),
+    capacidad: document.getElementById('preview-capacidad'),
+    titulos: document.getElementById('preview-titulos')
+};
+
+form.addEventListener('input', () => {
+    preview.nombre.textContent = form.nombre.value || 'Nombre del club';
+    preview.img.src = form.img.value || '';
+    preview.fundacion.textContent = form.fundacion.value || '-';
+    preview.estadio.textContent = form.estadio.value || '-';
+    preview.capacidad.textContent = form.capacidad.value || '-';
+    preview.titulos.textContent = form.titulos.value || '-';
+});

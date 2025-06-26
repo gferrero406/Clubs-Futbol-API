@@ -11,6 +11,35 @@
 <body>
     <div class="container">
         <h1>Clubes de Fútbol</h1>
+        <button id="toggle-form-btn">➕ Agregar nuevo club</button>
+
+<div id="form-container" class="oculto">
+    <form id="club-form" class="formulario">
+        <h2>Nuevo Club</h2>
+        <input type="text" name="nombre" placeholder="Nombre del club" required />
+        <input type="text" name="img" placeholder="URL del escudo" required />
+        <input type="text" name="fundacion" placeholder="Año de fundación" required />
+        <input type="text" name="estadio" placeholder="Nombre del estadio" required />
+        <input type="number" name="capacidad" placeholder="Capacidad del estadio" required />
+        <input type="number" name="titulos" placeholder="Cantidad de títulos" required />
+        <button type="submit">Agregar club</button>
+    </form>
+
+    <h3>Vista previa:</h3>
+    <div id="preview" class="card">
+        <div class="card-header">
+            <img src="" alt="Escudo del club" id="preview-img">
+            <h2 id="preview-nombre">Nombre del club</h2>
+        </div>
+        <div class="details active">
+            <p><strong>Fundación:</strong> <span id="preview-fundacion">-</span></p>
+            <p><strong>Estadio:</strong> <span id="preview-estadio">-</span></p>
+            <p><strong>Capacidad:</strong> <span id="preview-capacidad">-</span></p>
+            <p><strong>Títulos:</strong> <span id="preview-titulos">-</span></p>
+        </div>
+    </div>
+</div>
+        
         <div id="clubes-list" class="grid"></div>
     </div>
     <script src="script.js"></script>
